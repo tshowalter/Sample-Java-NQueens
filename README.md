@@ -8,4 +8,16 @@ An additional constraint (3 queens may not be in a direct line) is enforced alon
 
 This solver has been written for correctness and readability; it could be optimized significantly (by moving to a true bitmap rather than a boolean array, for instance, or bringing in monte carlo techniques to increase the likelihood of hitting a soluton earlier), but readability would suffer.
 
+You'll need `gradle` and a java runtime to run the solver.
 
+To run the solver with defaults (8 queens, line constraint enforced), do:
+
+```gradle run```
+
+To run the solver for 20 queens:
+
+```gradle run --args 20```
+
+For 6 queens without the line constraint:
+
+```gradle run --args "no-line-constraint 20"```
