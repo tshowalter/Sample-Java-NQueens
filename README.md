@@ -20,4 +20,4 @@ To run the solver for 20 queens:
 
 For 6 queens without the line constraint:
 
-```gradle run --args "no-line-constraint 20"```
+```gradle run --args "no-line-constraint 6"```
