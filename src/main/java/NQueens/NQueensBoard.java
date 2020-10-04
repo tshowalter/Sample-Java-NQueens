@@ -44,7 +44,7 @@ public class NQueensBoard
 {
    int[]     Queens;         // The index of the queen's position in each row.
    boolean[] Board;          // The chessboard.
-   int       BoardWidth;     // Width of the board (and height, Queen count...)
+   int       BoardWidth;     // Width of the board (and height, queen count...)
    boolean   LineConstraint; // Whether to enforce the 3 queen line constraint.
    boolean   Solved;         // Has this board been solved?
    boolean   Attempted;      // Have we attempted to solve it?
@@ -67,7 +67,10 @@ public class NQueensBoard
 
       //   The board is a bitmap; cells where a queen may be placed are `true`,
       // while places where a queen cannot be placed are `false`.  If this was
-      // to be a high performance solver, I'd probably 
+      // to be a high performance solver, I'd probably use an actual bitmap
+      // built from `unsigned long` or the like, to pack the memory in tighter
+      // both to make better use of cache and to facilitate solving larger
+      // boards.
 
       Arrays.fill(Board,  true);
       Arrays.fill(Queens, 0);
@@ -114,10 +117,10 @@ public class NQueensBoard
    void setVec(boolean[] board, int x, int y, int vx, int vy)
    {
       do // Skip the initial position.
-      {
-         x += vx;
-         y += vy;
-      } while(set(board, x, y));
+         {
+            x += vx;
+            y += vy;
+         } while(set(board, x, y));
    }
 
    /**
@@ -135,7 +138,7 @@ public class NQueensBoard
    int gcd_r(int a, int b)
    {
       return (b != 0) ? gcd(b, a % b) : a;
-	}
+   }
 
    /**
     * Calculate the GCD of a pair of integers.
@@ -159,7 +162,7 @@ public class NQueensBoard
     * @param board   the board to mark up
     * @param row     the row containing the queen used for markup
     */
-   
+
    void markBoard(boolean[] board, int row)
    {
       int x = Queens[row];
@@ -228,7 +231,8 @@ public class NQueensBoard
             if(board[(row * BoardWidth) + x]) // Can a queen go here?
                {
                   //    We could potentially clear the current board instead of
-                  // cloning, but we'd need to regenerate all the markup from
+                  // cloning on the second and subsequent iterations of this
+                  // loop, but we'd need to regenerate all the markup from
                   // earlier steps.  If we were trying to solve very large
                   // boards, it might be worth doing this for the memory
                   // savings.  As it is, it's probably cheaper to re-clone, and
@@ -323,7 +327,7 @@ public class NQueensBoard
                   return false;
                }
          }
-      
+
       // Make and clear a board.
 
       boolean[] board = new boolean[BoardWidth * BoardWidth];
