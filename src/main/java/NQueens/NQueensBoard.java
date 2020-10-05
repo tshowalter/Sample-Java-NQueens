@@ -279,7 +279,7 @@ public class NQueensBoard
 
             for(int x = 0; x < BoardWidth; x++)
                {
-                  System.out.print(Queens[y] == x ? "@" : ".");
+                  System.out.print(Queens[y] == x ? "@ " : ". ");
                }
 
             System.out.print("\n");
